@@ -1,0 +1,106 @@
+<div class="layout-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" [class.sidebar-recolhida]="recolhida">
+
+    <!-- LOGO -->
+    <div class="sidebar-logo">
+      <img src="images/logo/logo-final.png" alt="Diniz" class="logo-img" />
+      @if (!recolhida) {
+        <span class="logo-texto">Diniz Contabilidade</span>
+      }
+    </div>
+
+    <!-- TOGGLE -->
+    <button class="btn-toggle" (click)="toggleSidebar()" [title]="recolhida ? 'Expandir' : 'Recolher'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        @if (recolhida) {
+          <polyline points="9 18 15 12 9 6"/>
+        } @else {
+          <polyline points="15 18 9 12 15 6"/>
+        }
+      </svg>
+    </button>
+
+    <!-- MENU -->
+    <nav class="sidebar-nav">
+
+      <span class="nav-secao" *ngIf="!recolhida">Geral</span>
+
+      <a class="nav-item" routerLink="/dashboard" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Dashboard' : ''">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        @if (!recolhida) { <span>Dashboard</span> }
+      </a>
+
+      <a class="nav-item" routerLink="/arquivos" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Arquivos' : ''">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        @if (!recolhida) { <span>Arquivos</span> }
+      </a>
+
+      <a class="nav-item" routerLink="/pastas" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Pastas' : ''">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        @if (!recolhida) { <span>Pastas</span> }
+      </a>
+
+      @if (isAdmin) {
+        <span class="nav-secao" *ngIf="!recolhida">Administração</span>
+
+        <a class="nav-item" routerLink="/empresas" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Empresas' : ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          </svg>
+          @if (!recolhida) { <span>Empresas</span> }
+        </a>
+
+        <a class="nav-item" routerLink="/usuarios" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Usuários' : ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          @if (!recolhida) { <span>Usuários</span> }
+        </a>
+
+        <a class="nav-item" routerLink="/socios" routerLinkActive="nav-item-ativo" [title]="recolhida ? 'Sócios' : ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          @if (!recolhida) { <span>Sócios</span> }
+        </a>
+      }
+
+    </nav>
+
+    <!-- RODAPÉ SIDEBAR -->
+    <div class="sidebar-footer">
+      <div class="usuario-info" *ngIf="!recolhida">
+        <div class="usuario-avatar">{{ inicialUsuario }}</div>
+        <div class="usuario-dados">
+          <span class="usuario-nome">{{ nomeUsuario }}</span>
+          <span class="usuario-perfil">{{ perfilUsuario }}</span>
+        </div>
+      </div>
+      <button class="btn-logout" (click)="logout()" [title]="'Sair'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        @if (!recolhida) { <span>Sair</span> }
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <main class="conteudo" [class.conteudo-expandido]="recolhida">
+    <router-outlet />
+  </main>
+
+</div>

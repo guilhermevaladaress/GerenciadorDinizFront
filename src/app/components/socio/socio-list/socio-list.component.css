@@ -90,15 +90,13 @@
   background: #fff;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
-  overflow: visible;
+  overflow: hidden;
   box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
 
 .tabela {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
 }
 
 .tabela thead tr {
@@ -180,7 +178,7 @@
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   min-width: 160px;
-  z-index: 1000;
+  z-index: 100;
   overflow: hidden;
   animation: fadeUp 0.15s ease;
 }

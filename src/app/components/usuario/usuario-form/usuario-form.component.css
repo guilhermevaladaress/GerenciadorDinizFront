@@ -237,3 +237,68 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+select {
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  padding-right: 2.5rem;
+}
+
+select:focus { border-color: #0d1b4b; }
+select.campo-erro { border-color: #c0392b; }
+
+.label-hint {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #aaa;
+  margin-left: 0.25rem;
+}
+
+.input-senha-wrapper {
+  position: relative;
+}
+
+.input-senha-wrapper input {
+  padding-right: 2.8rem;
+}
+
+.btn-toggle-senha {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.btn-toggle-senha:hover { color: #0d1b4b; }
+
+.badge-perfil {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.badge-admin { background: #e8eaf6; color: #283593; }
+.badge-funcionario { background: #e8f5e9; color: #2e7d32; }

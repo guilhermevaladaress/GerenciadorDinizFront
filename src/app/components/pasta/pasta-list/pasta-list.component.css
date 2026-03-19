@@ -5,7 +5,6 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
-/* HEADER */
 .page-header {
   display: flex;
   align-items: flex-end;
@@ -42,14 +41,9 @@
   transition: background 0.2s;
 }
 
-.btn-novo:hover {
-  background: #162566;
-}
+.btn-novo:hover { background: #162566; }
 
-/* BUSCA */
-.barra-busca {
-  margin-bottom: 1.25rem;
-}
+.barra-busca { margin-bottom: 1.25rem; }
 
 .input-busca-wrapper {
   display: flex;
@@ -63,14 +57,8 @@
   transition: border-color 0.2s;
 }
 
-.input-busca-wrapper:focus-within {
-  border-color: #0d1b4b;
-}
-
-.input-busca-wrapper svg {
-  color: #aaa;
-  flex-shrink: 0;
-}
+.input-busca-wrapper:focus-within { border-color: #0d1b4b; }
+.input-busca-wrapper svg { color: #aaa; flex-shrink: 0; }
 
 .input-busca-wrapper input {
   border: none;
@@ -81,11 +69,8 @@
   background: transparent;
 }
 
-.input-busca-wrapper input::placeholder {
-  color: #bbb;
-}
+.input-busca-wrapper input::placeholder { color: #bbb; }
 
-/* TABELA */
 .tabela-wrapper {
   background: #fff;
   border: 1px solid #e8e8e8;
@@ -119,20 +104,10 @@
 .tabela tbody tr {
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.15s;
-  cursor: pointer;
 }
 
-.tabela tbody tr:last-child {
-  border-bottom: none;
-}
-
-.tabela tbody tr:hover {
-  background: #f8f9fc;
-}
-
-.tabela tbody tr.linha-ativa {
-  background: #eef1fa;
-}
+.tabela tbody tr:last-child { border-bottom: none; }
+.tabela tbody tr:hover { background: #f8f9fc; }
 
 .tabela td {
   padding: 0.9rem 1rem;
@@ -140,21 +115,17 @@
   color: #333;
 }
 
-.td-nome {
-  font-weight: 600;
-  color: #0d1b4b !important;
+.td-nome { font-weight: 600; color: #0d1b4b !important; }
+
+.td-nome-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* AÇÕES */
-.td-acoes {
-  width: 48px;
-  text-align: center;
-}
+.td-acoes { width: 48px; text-align: center; }
 
-.menu-wrapper {
-  position: relative;
-  display: inline-block;
-}
+.menu-wrapper { position: relative; display: inline-block; }
 
 .btn-menu {
   background: none;
@@ -168,10 +139,7 @@
   transition: background 0.15s, color 0.15s;
 }
 
-.btn-menu:hover {
-  background: #f0f0f0;
-  color: #333;
-}
+.btn-menu:hover { background: #f0f0f0; color: #333; }
 
 .menu-dropdown {
   position: fixed;
@@ -200,19 +168,10 @@
   text-align: left;
 }
 
-.menu-dropdown button:hover {
-  background: #f8f9fc;
-}
+.menu-dropdown button:hover { background: #f8f9fc; }
+.menu-dropdown .btn-deletar { color: #c0392b; }
+.menu-dropdown .btn-deletar:hover { background: #fff5f5; }
 
-.menu-dropdown .btn-deletar {
-  color: #c0392b;
-}
-
-.menu-dropdown .btn-deletar:hover {
-  background: #fff5f5;
-}
-
-/* ESTADO VAZIO */
 .estado-vazio {
   display: flex;
   flex-direction: column;
@@ -224,7 +183,6 @@
   font-size: 0.9rem;
 }
 
-/* PAINEL LATERAL */
 .overlay {
   position: fixed;
   inset: 0;
@@ -247,11 +205,8 @@
   transition: transform 0.3s ease;
 }
 
-.painel-lateral.painel-aberto {
-  transform: translateX(0);
-}
+.painel-lateral.painel-aberto { transform: translateX(0); }
 
-/* MODAL DELETE */
 .modal-confirmacao {
   position: fixed;
   top: 50%;
@@ -299,9 +254,7 @@
   transition: background 0.15s;
 }
 
-.btn-cancelar:hover {
-  background: #f5f5f5;
-}
+.btn-cancelar:hover { background: #f5f5f5; }
 
 .btn-confirmar-delete {
   padding: 0.65rem 1.2rem;
@@ -319,16 +272,9 @@
   justify-content: center;
 }
 
-.btn-confirmar-delete:hover:not(:disabled) {
-  background: #a93226;
-}
+.btn-confirmar-delete:hover:not(:disabled) { background: #a93226; }
+.btn-confirmar-delete:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.btn-confirmar-delete:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* SPINNERS */
 .spinner {
   width: 28px;
   height: 28px;
@@ -349,16 +295,6 @@
   display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

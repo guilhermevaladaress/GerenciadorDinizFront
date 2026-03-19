@@ -1,0 +1,153 @@
+<div class="dash">
+
+  <div class="dash-header">
+    <div>
+      <h1 class="dash-titulo">Olá, {{ nomeUsuario }} 👋</h1>
+      <span class="dash-sub">{{ dataAtual }}</span>
+    </div>
+    <button class="btn-atualizar" (click)="carregarDados()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+      </svg>
+      Atualizar
+    </button>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards-row">
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Empresas</span>
+        <div class="card-icon icon-blue">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalEmpresas }}</span>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Arquivos</span>
+        <div class="card-icon icon-red">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalArquivos }}</span>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Pastas</span>
+        <div class="card-icon icon-yellow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalPastas }}</span>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Usuários</span>
+        <div class="card-icon icon-green">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalUsuarios }}</span>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Sócios</span>
+        <div class="card-icon icon-purple">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalSocios }}</span>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="card-label">Armazenamento</span>
+        <div class="card-icon icon-teal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+      </div>
+      <span class="card-valor">{{ totalStorage }}</span>
+    </div>
+  </div>
+
+  <!-- GRID PRINCIPAL -->
+  <div class="main-grid">
+
+    <div class="painel">
+      <div class="painel-header">
+        <h2 class="painel-titulo">Arquivos por Empresa</h2>
+      </div>
+      <div class="grafico-body">
+        @if (carregando) {
+          <div class="estado-vazio"><span class="spinner"></span></div>
+        } @else if (dadosGrafico.length === 0) {
+          <div class="estado-vazio"><p>Sem dados.</p></div>
+        } @else {
+          @for (item of dadosGrafico; track item.empresa) {
+            <div class="barra-row">
+              <span class="barra-nome">{{ item.empresa }}</span>
+              <div class="barra-track">
+                <div class="barra-fill" [style.width.%]="item.percentual"></div>
+              </div>
+              <span class="barra-count">{{ item.total }}</span>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="painel">
+      <div class="painel-header">
+        <h2 class="painel-titulo">Arquivos Recentes</h2>
+        <a routerLink="/arquivos" class="painel-link">Ver todos →</a>
+      </div>
+      @if (arquivosRecentes.length === 0) {
+        <div class="estado-vazio"><p>Nenhum arquivo.</p></div>
+      } @else {
+        <div class="lista-arquivos">
+          @for (arquivo of arquivosRecentes; track arquivo.id) {
+            <div class="arquivo-row">
+              <span class="badge-tipo badge-{{ arquivo.tipoArquivo.toLowerCase() }}">{{ arquivo.tipoArquivo }}</span>
+              <div class="arquivo-info">
+                <span class="arquivo-nome">{{ arquivo.nomeOriginal }}</span>
+                <span class="arquivo-meta">{{ getNomeEmpresa(arquivo.idEmpresa) }} · {{ formatarTamanho(arquivo.tamanho) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  </div>
+
+  <!-- EMPRESAS -->
+  <div class="painel">
+    <div class="painel-header">
+      <h2 class="painel-titulo">Empresas Cadastradas</h2>
+      <a routerLink="/empresas" class="painel-link">Gerenciar →</a>
+    </div>
+    <div class="empresas-grid">
+      @for (empresa of empresas; track empresa.id) {
+        <div class="empresa-card">
+          <div class="empresa-avatar">{{ empresa.nomeFantasia.charAt(0).toUpperCase() }}</div>
+          <div class="empresa-dados">
+            <span class="empresa-nome">{{ empresa.nomeFantasia }}</span>
+            <span class="empresa-cnpj">{{ empresa.cnpj }}</span>
+          </div>
+          <div class="empresa-badges">
+            <span class="empresa-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+              {{ getArquivosPorEmpresa(empresa.id!) }} arquivos
+            </span>
+            <span class="empresa-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              {{ getPastasPorEmpresa(empresa.id!) }} pastas
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

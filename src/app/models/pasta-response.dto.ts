@@ -3,5 +3,5 @@ export interface PastaResponseDTO {
   nome: string;
   descricao?: string;
   idEmpresa: number;
-  idPastaPai?: number;
+  idPastaPai?: number | null;
 }
