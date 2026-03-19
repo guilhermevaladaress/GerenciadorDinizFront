@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ArquivoResponseDTO } from '../../../models/arquivo-response.dto';
 import { EmpresaResponseDTO } from '../../../models/empresa-response.dto';
 import { PastaResponseDTO } from '../../../models/pasta-response.dto';
@@ -26,7 +26,6 @@ interface DadoGrafico {
 })
 export class DashboardComponent implements OnInit {
 
-  nomeUsuario = '';
   dataAtual = '';
 
   totalEmpresas = 0;
@@ -35,6 +34,7 @@ export class DashboardComponent implements OnInit {
   totalUsuarios = 0;
   totalSocios = 0;
   totalStorage = '0 B';
+  maxGrafico = 0;
 
   arquivos: ArquivoResponseDTO[] = [];
   empresas: EmpresaResponseDTO[] = [];
@@ -50,13 +50,11 @@ export class DashboardComponent implements OnInit {
     private pastaService: PastaService,
     private usuarioService: UsuarioService,
     private socioService: SocioService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const payload = this.authService.getPayload();
-    const email = payload?.sub ?? '';
-    this.nomeUsuario = email.split('@')[0];
     this.dataAtual = new Date().toLocaleDateString('pt-BR', {
       weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
     });
@@ -101,6 +99,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  navegarPara(rota: string): void {
+    this.router.navigate([rota]);
+  }
+
   calcularStorage(arquivos: ArquivoResponseDTO[]): string {
     const total = arquivos.reduce((acc, a) => acc + a.tamanho, 0);
     if (total < 1024) return `${total} B`;
@@ -114,11 +116,11 @@ export class DashboardComponent implements OnInit {
     arquivos.forEach(a => {
       mapa[a.idEmpresa] = (mapa[a.idEmpresa] ?? 0) + 1;
     });
-    const maximo = Math.max(...Object.values(mapa), 1);
+    this.maxGrafico = Math.max(...Object.values(mapa), 1);
     this.dadosGrafico = Object.entries(mapa).map(([id, total]) => ({
       empresa: this.empresas.find(e => e.id === Number(id))?.nomeFantasia ?? '—',
       total,
-      percentual: Math.round((total / maximo) * 100)
+      percentual: Math.round((total / this.maxGrafico) * 100)
     })).sort((a, b) => b.total - a.total);
   }
 

@@ -1,8 +1,9 @@
 <div class="dash">
 
+  <!-- HEADER -->
   <div class="dash-header">
     <div>
-      <h1 class="dash-titulo">Olá, {{ nomeUsuario }} 👋</h1>
+      <h1 class="dash-titulo">Dashboard</h1>
       <span class="dash-sub">{{ dataAtual }}</span>
     </div>
     <button class="btn-atualizar" (click)="carregarDados()">
@@ -15,7 +16,7 @@
 
   <!-- CARDS -->
   <div class="cards-row">
-    <div class="card">
+    <div class="card card-clicavel" (click)="navegarPara('/empresas')">
       <div class="card-top">
         <span class="card-label">Empresas</span>
         <div class="card-icon icon-blue">
@@ -24,7 +25,7 @@
       </div>
       <span class="card-valor">{{ totalEmpresas }}</span>
     </div>
-    <div class="card">
+    <div class="card card-clicavel" (click)="navegarPara('/arquivos')">
       <div class="card-top">
         <span class="card-label">Arquivos</span>
         <div class="card-icon icon-red">
@@ -33,7 +34,7 @@
       </div>
       <span class="card-valor">{{ totalArquivos }}</span>
     </div>
-    <div class="card">
+    <div class="card card-clicavel" (click)="navegarPara('/pastas')">
       <div class="card-top">
         <span class="card-label">Pastas</span>
         <div class="card-icon icon-yellow">
@@ -42,7 +43,7 @@
       </div>
       <span class="card-valor">{{ totalPastas }}</span>
     </div>
-    <div class="card">
+    <div class="card card-clicavel" (click)="navegarPara('/usuarios')">
       <div class="card-top">
         <span class="card-label">Usuários</span>
         <div class="card-icon icon-green">
@@ -51,7 +52,7 @@
       </div>
       <span class="card-valor">{{ totalUsuarios }}</span>
     </div>
-    <div class="card">
+    <div class="card card-clicavel" (click)="navegarPara('/socios')">
       <div class="card-top">
         <span class="card-label">Sócios</span>
         <div class="card-icon icon-purple">
@@ -74,6 +75,7 @@
   <!-- GRID PRINCIPAL -->
   <div class="main-grid">
 
+    <!-- GRÁFICO DE COLUNAS -->
     <div class="painel">
       <div class="painel-header">
         <h2 class="painel-titulo">Arquivos por Empresa</h2>
@@ -84,19 +86,29 @@
         } @else if (dadosGrafico.length === 0) {
           <div class="estado-vazio"><p>Sem dados.</p></div>
         } @else {
-          @for (item of dadosGrafico; track item.empresa) {
-            <div class="barra-row">
-              <span class="barra-nome">{{ item.empresa }}</span>
-              <div class="barra-track">
-                <div class="barra-fill" [style.width.%]="item.percentual"></div>
-              </div>
-              <span class="barra-count">{{ item.total }}</span>
+          <div class="colunas-wrapper">
+            <div class="colunas-area">
+              @for (item of dadosGrafico; track item.empresa) {
+                <div class="coluna-item">
+                  <span class="coluna-valor">{{ item.total }}</span>
+                  <div class="coluna-barra-wrapper">
+                    <div class="coluna-barra" [style.height.%]="item.percentual"></div>
+                  </div>
+                  <span class="coluna-label">{{ item.empresa }}</span>
+                </div>
+              }
             </div>
-          }
+            <div class="colunas-eixo-y">
+              <span>{{ maxGrafico }}</span>
+              <span>{{ maxGrafico / 2 | number:'1.0-0' }}</span>
+              <span>0</span>
+            </div>
+          </div>
         }
       </div>
     </div>
 
+    <!-- ARQUIVOS RECENTES -->
     <div class="painel">
       <div class="painel-header">
         <h2 class="painel-titulo">Arquivos Recentes</h2>
@@ -129,7 +141,7 @@
     </div>
     <div class="empresas-grid">
       @for (empresa of empresas; track empresa.id) {
-        <div class="empresa-card">
+        <div class="empresa-card" (click)="navegarPara('/empresas')">
           <div class="empresa-avatar">{{ empresa.nomeFantasia.charAt(0).toUpperCase() }}</div>
           <div class="empresa-dados">
             <span class="empresa-nome">{{ empresa.nomeFantasia }}</span>
